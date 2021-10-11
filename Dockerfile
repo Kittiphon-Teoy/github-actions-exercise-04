@@ -1,5 +1,15 @@
-FROM alpine:3.10
+FROM alpine
 
-COPY entrypoint.sh /entrypoint.sh
+LABEL maintainer="61160086@go.buu.ac.th"
 
-ENTRYPOINT ["/entrypoint.sh"]
+RUN apk add --update nodejs npm curl
+
+COPY . /src
+
+WORKDIR /src 
+
+RUN npm install
+
+EXPOSE 8080
+
+ENTRYPOINT ["node","./app.js"]
